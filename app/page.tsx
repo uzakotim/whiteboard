@@ -1,10 +1,15 @@
-import { Button } from "@/components/ui/button";
+'use client'
+
+import { SignIn, UserButton, useUser } from '@clerk/nextjs'
 
 export default function Home() {
-  return (
-    <div>
-      <p>Hello ,world</p>
-      <Button>Button</Button>
-    </div>
-  );
+  const { isSignedIn } = useUser()
+
+  if (!isSignedIn) {
+    return <SignIn />
+  }
+
+  return <div>Welcome!
+    <UserButton/>
+  </div>
 }
