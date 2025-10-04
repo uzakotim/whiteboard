@@ -5,6 +5,12 @@ import NavBar from './_components/NavBar'
 interface Props {
     children: React.ReactNode
 }
+/**
+ * Renders the dashboard layout containing the global Sidebar, organization sidebar, navbar, and main content area.
+ *
+ * @param children - Content to display inside the main dashboard content area (to the right of the sidebars and below the navbar)
+ * @returns The rendered dashboard layout element
+ */
 function DashboardLayout({children}: Props) {
   return (
     <main className='h-full'>
