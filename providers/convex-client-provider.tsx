@@ -1,16 +1,24 @@
 "use client"
 import { ClerkProvider, useAuth } from '@clerk/nextjs'
 import { ConvexProviderWithClerk } from 'convex/react-clerk'
-import { AuthLoading,Authenticated,ConvexReactClient } from 'convex/react'
+import { AuthLoading,ConvexReactClient } from 'convex/react'
 import Loading from '@/components/auth/Loading'
 interface ConvexClerkProviderProps {
     children: React.ReactNode
 }
 
-const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL!;
-const convex = new ConvexReactClient(convexUrl);
+
 
 function ConvexClerkProvider( { children }: ConvexClerkProviderProps ) {
+    const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL!;
+    if (!convexUrl) {
+    throw new Error(
+        'Missing NEXT_PUBLIC_CONVEX_URL environment variable. ' +
+        'Please add it to your .env.local file.'
+    );
+    }
+    const convex = new ConvexReactClient(convexUrl);
+    
     return (
         <ClerkProvider>
             <ConvexProviderWithClerk useAuth={useAuth} client={convex}>
